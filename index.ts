@@ -1,8 +1,14 @@
 Bun.serve({
-  port: 3000, 
+  port: process.env.PORT || 3000, 
   fetch(req) {
-    return new Response("Hi am a trial server");
+    const url = new URL(req.url);
+
+    if (url.pathname === "/") {
+      return new Response("Hi am a trial server");
+    }
+
+    return new Response("Not Found", { status: 404 });
   },
 });
 
-console.log("Server running on port 3000");
+console.log("TypeScript trial server is active!");
